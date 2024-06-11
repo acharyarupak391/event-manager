@@ -763,6 +763,13 @@ hasown@^2.0.0:
   dependencies:
     function-bind "^1.1.2"
 
+holidayapi@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/holidayapi/-/holidayapi-6.0.1.tgz#c274982d4026137e783fcb13d8d4575b9c4ac1a7"
+  integrity sha512-ECzoic4lY1sjl71Zyit2sQxgsvCLM/zbHg+BbjdPl6V4vKotCGzZTiLNue9ZZcwGEsbwcQLrV1uLLGpeeN3qZQ==
+  dependencies:
+    node-fetch "^2"
+
 http-cache-semantics@^4.1.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/http-cache-semantics/-/http-cache-semantics-4.1.1.tgz#abe02fcb2985460bf0323be664436ec3476a6d5a"
@@ -1120,7 +1127,7 @@ node-addon-api@^7.0.0:
   resolved "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-7.1.0.tgz#71f609369379c08e251c558527a107107b5e0fdb"
   integrity sha512-mNcltoe1R8o7STTegSOHdnJNN7s5EUvhoS7ShnTHDyOSd+8H+UdWODq6qSv67PjC8Zc5JRT8+oLAMCr0SIXw7g==
 
-node-fetch@^2.6.1, node-fetch@^2.6.9:
+node-fetch@^2, node-fetch@^2.6.1, node-fetch@^2.6.9:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.7.0.tgz#d0f0fa6e3e2dc1d27efcd8ad99d550bda94d187d"
   integrity sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==

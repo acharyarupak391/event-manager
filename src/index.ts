@@ -2,9 +2,10 @@ import express from 'express'
 import { config } from 'dotenv'
 import { corsOptions } from './utils/cors'
 import cors from 'cors'
-import { addEvent, deleteEvent, getEvents, updateEvent } from './controller'
+import { addEvent, deleteEvent, getEvents, getHolidays, updateEvent } from './controller'
 import { openDb } from './database'
 import { Database } from 'sqlite'
+
 config()
 
 const app = express()
@@ -43,6 +44,10 @@ app.get('/', (_, res) => {
   })
 
 })()
+
+app.get('/holidays', async (req, res) => {
+  getHolidays(req, res)
+})
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
