@@ -5,9 +5,18 @@ import { useUserEvents } from "@/hooks/useUserEvents";
 import { AddEmail } from "./AddEmail";
 
 const EventCalendar = () => {
-  const { holidays } = useHolidays();
+  const { holidays, fetchHolidays } = useHolidays();
   const { events, refetch, addingOrUpdating, deleteEvent, deleting } =
     useUserEvents();
+
+  const handleMonthChange = (date: Date) => {
+    const month = date.getMonth() + 1;
+
+    if (month === 12) {
+      fetchHolidays(date.getFullYear() + 1);
+      fetchHolidays(date.getFullYear() - 1);
+    }
+  };
 
   return (
     <div>
@@ -19,6 +28,7 @@ const EventCalendar = () => {
         classNames={{
           month: "bg-cyan-50 rounded-lg p-4",
         }}
+        onMonthChange={handleMonthChange}
         components={{
           Day: (props) => (
             <DayComponent
