@@ -12,7 +12,7 @@ import {
   getInitialStartAndEndTime,
 } from "@/lib/timezones";
 import { TimezoneSelect } from "./TimezoneSelect";
-import { useAddOrUpdateEvent } from "@/hooks/useAddorUpdateEvent";
+import { useAddOrUpdateEvent } from "@/hooks/useAddOrUpdateEvent";
 import { getUserInfoFromLS, setUserInfoInLS } from "@/lib/localstorage";
 import { InputTags } from "./ui/input-tags";
 import { cn } from "@/lib/utils";
