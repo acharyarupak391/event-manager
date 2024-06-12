@@ -1,5 +1,5 @@
 {
-  "name": "event-manager",
+  "name": "simple-event-scheduler",
   "version": "1.0.0",
   "description": "App to schedule events and get notified",
   "main": "index.ts",
