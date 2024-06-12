@@ -1,4 +1,4 @@
-import { HolidaysRequest, HolidaysResponse } from "holidayapi";
+import { HolidaysResponse } from "holidayapi";
 
 export const updateHolidayDates = (holidayResponse: HolidaysResponse) => {
   if (holidayResponse.error || !holidayResponse.holidays) {

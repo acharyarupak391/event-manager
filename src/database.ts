@@ -17,6 +17,7 @@ export async function openDb() {
       event_description TEXT NOT NULL,
       event_start_date TIMESTAMP NOT NULL,
       event_end_date TIMESTAMP NOT NULL,
+      participants TEXT NOT NULL,
       timezone TEXT NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );

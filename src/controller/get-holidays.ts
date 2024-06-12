@@ -16,7 +16,7 @@ export const getHolidays = async (req: Request, res: Response) => {
       return;
     }
 
-    res.status(200).send(updateHolidayDates(response));
+    res.status(200).send({ holidays: updateHolidayDates(response) });
   } catch (error) {
     console.error(error);
     res.status(500).send({ error: "Failed to get holidays" });

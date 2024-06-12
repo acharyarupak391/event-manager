@@ -7,7 +7,7 @@ export const getEvents = async (req: Request, res: Response, db: Database) => {
   const error = validateEmail(req);
 
   if (error) {
-    return res.status(400).send(error)
+    return res.status(400).send({ error })
   }
 
   try {
@@ -15,7 +15,9 @@ export const getEvents = async (req: Request, res: Response, db: Database) => {
 
     const events = await db.all<DBEvent[]>(`SELECT * FROM events WHERE user_email = ?`, [email]);
 
-    res.send(events);
+    const parsedEvents = events.map(event => ({ ...event, participants: JSON.parse(event.participants) }));
+
+    res.send({ events: parsedEvents });
   } catch (error) {
     console.error(error)
     res.status(500).send({ error });

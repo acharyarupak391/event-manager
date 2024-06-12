@@ -1,7 +1,5 @@
 import { MailerSend, EmailParams, Sender, Recipient } from "mailersend";
 
-
-
 export const sendEmail = async ({
   name,
   email,

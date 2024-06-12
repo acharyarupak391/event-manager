@@ -1,4 +1,5 @@
 import { CorsOptions } from 'cors';
+
 var allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [];
 
 const corsOptions: CorsOptions = {

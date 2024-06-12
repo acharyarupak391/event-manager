@@ -8,6 +8,7 @@ const EventSchema = Joi.object({
   eventDescription: Joi.string().required(),
   eventStartDate: Joi.date().iso().greater('now').required(),
   eventEndDate: Joi.date().iso().greater(Joi.ref('eventStartDate')).required(),
+  participants: Joi.array().items(Joi.string().email()).required(),
   timezone: Joi.string().required()
 });
 

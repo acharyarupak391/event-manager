@@ -6,7 +6,7 @@ export const deleteEvent = async (req: Request, res: Response, db: Database) => 
   const error = validateEmail(req, true);
 
   if (error) {
-    return res.status(400).send(error)
+    return res.status(400).send({ error })
   }
 
   try {
@@ -15,7 +15,7 @@ export const deleteEvent = async (req: Request, res: Response, db: Database) => 
 
     await db.run(`DELETE FROM events WHERE user_email = ? AND id = ?`, [email, id]);
 
-    res.send('Event deleted');
+    res.send({ message: 'Event deleted' });
   } catch (error) {
     console.error(error)
     res.status(500).send({ error });

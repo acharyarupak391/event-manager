@@ -5,6 +5,8 @@ export interface Event {
   eventDescription: string;
   eventStartDate: string;
   eventEndDate: string;
+  participants: string[];
+  timezone: string;
 }
 
 export interface DBEvent {
@@ -15,5 +17,7 @@ export interface DBEvent {
   event_description: string;
   event_start_date: Date;
   event_end_date: Date;
+  participants: string;
+  timezone: string;
   created_at: Date;
 }
