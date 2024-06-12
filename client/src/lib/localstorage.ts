@@ -2,6 +2,7 @@ interface LSUserInfo {
   email: string;
   name: string;
   timezone: string;
+  country: string;
 }
 
 const getUserInfoFromLS = (): LSUserInfo => {
@@ -19,14 +20,17 @@ const getUserInfoFromLS = (): LSUserInfo => {
   return {
     email: '',
     name: '',
-    timezone: ''
+    timezone: '',
+    country: '',
   }
 }
 
-const setUserInfoInLS = (value: LSUserInfo) => {
+const setUserInfoInLS = (value: LSUserInfo | ((value: LSUserInfo) => LSUserInfo)) => {
   if (typeof window !== 'undefined') {
     try {
-      localStorage.setItem('userinfo', JSON.stringify(value));
+      const userInfo = getUserInfoFromLS();
+      const newUserInfo = typeof value === 'function' ? value(userInfo) : value;
+      localStorage.setItem('userinfo', JSON.stringify(newUserInfo));
     } catch (error) {
       console.log('Error setting data in local storage', error);
     }

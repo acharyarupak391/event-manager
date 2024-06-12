@@ -14,11 +14,12 @@ const AddEmail = ({ refetchEvents }: { refetchEvents: () => void }) => {
     e.preventDefault();
 
     const email = (e.target as HTMLFormElement).userEmail.value as string;
-    setUserInfoInLS({
+    setUserInfoInLS((prev) => ({
       email,
       name: "",
-      timezone: "",
-    });
+      timezone: prev.timezone,
+      country: prev.country,
+    }));
     setLsUserEmail(email);
 
     (e.target as HTMLFormElement).reset();
@@ -32,11 +33,12 @@ const AddEmail = ({ refetchEvents }: { refetchEvents: () => void }) => {
   };
 
   const handleEmailDelete = () => {
-    setUserInfoInLS({
+    setUserInfoInLS((prev) => ({
       email: "",
       name: "",
-      timezone: "",
-    });
+      timezone: prev.timezone,
+      country: prev.country,
+    }));
     setLsUserEmail("");
     toast({
       title: "Success",

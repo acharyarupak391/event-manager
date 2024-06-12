@@ -87,11 +87,12 @@ const AddEventForm = ({
       if (submitted) {
         closePopup();
         refetchEvents();
-        setUserInfoInLS({
+        setUserInfoInLS((prev) => ({
           email: formState.email,
           name: formState.name,
           timezone: formState.timezone.timezone,
-        });
+          country: prev.country,
+        }));
       }
     } catch (error) {
       console.log(`${error}`);
