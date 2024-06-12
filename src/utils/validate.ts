@@ -50,10 +50,14 @@ const validateEmail = (req: Request, deleteEvent?: boolean) => {
 const validateYear = (req: Request) => {
   const currentYear = new Date().getFullYear();
   const Schema = Joi.object({
-    year: Joi.number().min(1970).max(currentYear).required()
+    year: Joi.number().min(1970).max(currentYear).required(),
+    country: Joi.string().required().max(4).min(2)
   });
 
-  const validation = Schema.validate(req.params);
+  const validation = Schema.validate({
+    year: req.params.year,
+    country: req.query.country
+  });
 
   if (validation.error) {
     return validation.error.details[0].message;

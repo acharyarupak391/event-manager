@@ -50,7 +50,7 @@ export const CountrySelector = ({
         </SelectValue>
       </SelectTrigger>
 
-      <SelectContent>
+      <SelectContent align="end">
         {countries.map((country) => (
           <SelectItem key={country.code} value={country.code}>
             {country.name}

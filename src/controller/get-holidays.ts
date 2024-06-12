@@ -1,12 +1,10 @@
 import { Request, Response } from "express";
-import { getCountry } from "../utils/get-country";
 import { HolidayAPI } from "holidayapi";
 import { updateHolidayDates } from "../utils/update-holiday-dates";
 import { validateYear } from "../utils/validate";
 
 export const getHolidays = async (req: Request, res: Response) => {
   const holidayApi = new HolidayAPI({ key: process.env.HOLIDAY_API_KEY });
-  const userCountry = await getCountry(req);
 
   const error = validateYear(req);
 
@@ -16,12 +14,13 @@ export const getHolidays = async (req: Request, res: Response) => {
   }
 
   const { year } = req.params;
+  const { country } = req.query;
 
   try {
     // need to set the year to ONLY the previous year because of holidayAPI free tier limitations
     const currentYear = new Date().getFullYear();
 
-    const response = await holidayApi.holidays({ country: userCountry, year: currentYear - 1 });
+    const response = await holidayApi.holidays({ country: country as string, year: currentYear - 1 });
 
     if (response.error) {
       res.status(500).send({ error: response.error });
