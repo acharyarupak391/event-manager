@@ -2,23 +2,35 @@ import { Request, Response } from "express";
 import { getCountry } from "../utils/get-country";
 import { HolidayAPI } from "holidayapi";
 import { updateHolidayDates } from "../utils/update-holiday-dates";
+import { validateYear } from "../utils/validate";
 
 export const getHolidays = async (req: Request, res: Response) => {
   const holidayApi = new HolidayAPI({ key: process.env.HOLIDAY_API_KEY });
   const userCountry = await getCountry(req);
 
+  const error = validateYear(req);
+
+  if (error) {
+    res.status(400).send({ error });
+    return;
+  }
+
+  const { year } = req.params;
+
   try {
-    const lastYear = new Date().getFullYear() - 1;
-    const response = await holidayApi.holidays({ country: userCountry, year: lastYear });
+    // need to set the year to ONLY the previous year because of holidayAPI free tier limitations
+    const currentYear = new Date().getFullYear();
+
+    const response = await holidayApi.holidays({ country: userCountry, year: currentYear - 1 });
 
     if (response.error) {
       res.status(500).send({ error: response.error });
       return;
     }
 
-    res.status(200).send({ holidays: updateHolidayDates(response) });
+    res.status(200).send({ holidays: updateHolidayDates(response, Number(year)) });
   } catch (error) {
     console.error(error);
-    res.status(500).send({ error: "Failed to get holidays" });
+    res.status(500).send({ error: "Failed to get holidays for the year " + year });
   }
 }

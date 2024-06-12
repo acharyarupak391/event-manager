@@ -45,7 +45,7 @@ app.get('/', (_, res) => {
 
 })()
 
-app.get('/holidays', async (req, res) => {
+app.get('/holidays/:year', async (req, res) => {
   getHolidays(req, res)
 })
 

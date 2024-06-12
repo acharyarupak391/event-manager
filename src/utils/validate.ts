@@ -47,4 +47,19 @@ const validateEmail = (req: Request, deleteEvent?: boolean) => {
   return null;
 }
 
-export { validateEvent, validateEmail };
+const validateYear = (req: Request) => {
+  const currentYear = new Date().getFullYear();
+  const Schema = Joi.object({
+    year: Joi.number().min(1970).max(currentYear).required()
+  });
+
+  const validation = Schema.validate(req.params);
+
+  if (validation.error) {
+    return validation.error.details[0].message;
+  }
+
+  return null;
+}
+
+export { validateEvent, validateEmail, validateYear };
