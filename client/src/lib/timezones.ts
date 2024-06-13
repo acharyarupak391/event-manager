@@ -64,7 +64,7 @@ const isTimeError = (start: Date, end: Date): boolean => {
   const startTime = start.getTime();
   const endTime = end.getTime();
 
-  return startTime < currentTime + (10 * 60000) || startTime >= endTime;
+  return startTime < currentTime + (2 * 60000) || startTime >= endTime;
 }
 
 const getInitialStartAndEndTime = (date: Date) => {

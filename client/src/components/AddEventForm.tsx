@@ -208,7 +208,7 @@ const AddEventForm = ({
 
               {timeError && (
                 <span className="text-xs text-red-400 leading-none">
-                  Start time should be at least 10 minutes after current time,
+                  Start time should be at least 2 minutes after current time,
                   and end time should be after start time
                 </span>
               )}
