@@ -13,12 +13,12 @@ export const addEvent = async (req: Request, res: Response, db: Database) => {
   try {
     const { userName, userEmail, eventName, eventDescription, eventStartDate, eventEndDate, participants, timezone } = req.body;
 
-    await db.run(
+    const result = await db.run(
       `INSERT INTO events (user_name, user_email, event_name, event_description, event_start_date, event_end_date, participants, timezone) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
       [userName, userEmail, eventName, eventDescription, eventStartDate, eventEndDate, JSON.stringify(participants), timezone]
     );
 
-    scheduleAndEmail(eventStartDate, req);
+    scheduleAndEmail(eventStartDate, req, result.lastID);
 
     res.send({ message: 'Event added' });
   } catch (error) {

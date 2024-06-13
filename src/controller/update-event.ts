@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Database } from "sqlite";
 import { validateEvent } from "../utils/validate";
 import { DBEvent } from "../model";
+import { updateSchedule } from "../utils/schedule";
 
 export const updateEvent = async (req: Request, res: Response, db: Database) => {
   const error = validateEvent(req, true);
@@ -29,6 +30,7 @@ export const updateEvent = async (req: Request, res: Response, db: Database) => 
       `UPDATE events SET user_name = ?, event_name = ?, event_description = ?, event_start_date = ?, event_end_date = ?, participants = ?, timezone = ? WHERE user_email = ? AND id = ?`,
       [userName, eventName, eventDescription, eventStartDate, eventEndDate, JSON.stringify(participants), timezone, userEmail, id]
     );
+    updateSchedule(eventStartDate, req, Number(id));
 
     res.send({ message: 'Event updated' });
   } catch (error) {

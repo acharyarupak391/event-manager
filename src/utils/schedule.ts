@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import schedule from 'node-schedule';
-import { Event } from '../model';
+import { DBEvent, Event } from '../model';
 import { eventNotificationParticipantTemplate, eventNotificationTemplate } from './template';
 import { sendEmail } from './email';
 
@@ -31,7 +31,11 @@ const sendEventEmail = async (event: Event) => {
   }
 }
 
-const scheduleAndEmail = (date: string, req: Request) => {
+const scheduleAndEmail = (date: string, req: Request, id?: number) => {
+  if (!id) {
+    return;
+  }
+
   const dateObj = new Date(date);
 
   const event: Event = {
@@ -45,10 +49,30 @@ const scheduleAndEmail = (date: string, req: Request) => {
     timezone: req.body.timezone
   }
 
-  schedule.scheduleJob(dateObj, async () => {
+  schedule.scheduleJob(id.toString(), dateObj, async () => {
     console.log(`\n-------------------------------\nEvent started\n-------------------------------\n`);
     sendEventEmail(event);
   })
 }
 
-export { scheduleAndEmail }
+const deleteSchedule = (id: number) => {
+  try {
+    schedule.cancelJob(id.toString());
+  } catch (error) {
+    console.error(`Error deleting schedule:`, error);
+  }
+}
+
+const updateSchedule = (date: string, req: Request, id?: number) => {
+  if (!id) {
+    return;
+  }
+
+  // delete the old schedule
+  deleteSchedule(id);
+
+  // create a new schedule
+  scheduleAndEmail(date, req, id);
+}
+
+export { scheduleAndEmail, deleteSchedule, updateSchedule }
